@@ -169,3 +169,4 @@ I added this one in case you met the same issues I met. So if you get in trouble
 - mysql2/promise (connection pool)
 - JWT auth + bcrypt
 - zod for validation
+

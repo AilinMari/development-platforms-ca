@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes from './routes/auth.js';
+import authRoutes, { handleLogin, handleRegister } from './routes/auth.js';
 import articleRoutes from './routes/articles.js';
 import { testConnection } from './config/database.js';
 
@@ -35,6 +35,10 @@ app.get('/health', async (_req, res) => {
 app.use('/auth', authRoutes);
 app.use('/articles', articleRoutes);
 
+// Compatibility alias routes at root (per brief's paths and typo)
+app.post('/user/register', handleRegister);
+app.post('/uesr/login', handleLogin);
+
 // root route
 app.get('/', (_req, res) => {
   res.json({
@@ -54,6 +58,11 @@ app.get('/', (_req, res) => {
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err);
   res.status(500).json({ error: 'Internal Server Error' });
+});
+
+// 404 handler (after all routes)
+app.use((_req, res) => {
+  res.status(404).json({ error: 'Not Found' });
 });
 
 app.listen(PORT, () => {

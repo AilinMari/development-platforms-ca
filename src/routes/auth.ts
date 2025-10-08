@@ -19,7 +19,7 @@ const registerSchema = z.object({
   password: z.string().min(6),
 });
 
-async function handleRegister(req: any, res: any) {
+export async function handleRegister(req: any, res: any) {
   const parse = registerSchema.safeParse(req.body);
   if (!parse.success) return res.status(400).json({ error: parse.error.flatten() });
   const { email, password } = parse.data;
@@ -45,7 +45,7 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
-async function handleLogin(req: any, res: any) {
+export async function handleLogin(req: any, res: any) {
   const parse = loginSchema.safeParse(req.body);
   if (!parse.success) return res.status(400).json({ error: parse.error.flatten() });
   const { email, password } = parse.data;
