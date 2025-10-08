@@ -170,3 +170,40 @@ I added this one in case you met the same issues I met. So if you get in trouble
 - JWT auth + bcrypt
 - zod for validation
 
+## Project layout
+
+This repo follows a small, single-responsibility structure so each file focuses on one thing:
+
+```
+src/
+  index.ts                 # App entry: wiring, health, aliases, 404, error handler
+  routes/                  # Express Routers (HTTP paths only)
+    auth.ts                # POST /auth/register, /auth/login (+ aliases)
+    articles.ts            # GET /articles, POST /articles
+  controllers/             # Business logic (no HTTP details)
+    auth.ts                # register(), login()
+    articles.ts            # listArticles(), createArticle()
+  middleware/
+    auth.ts                # JWT auth (Bearer token)
+    validation/
+      validate.ts          # validateBody(schema) using zod
+  schemas/                 # zod validation schemas (no logic)
+    auth.ts                # registerSchema, loginSchema
+    articles.ts            # articleSchema
+  config/
+    database.ts            # mysql2 pool + testConnection()
+  db/
+    connection.ts          # (if present) DB connection helpers
+scripts/
+  seed.ts                  # Seed demo user/article
+sql/
+  database.sql             # Exported MySQL schema for submission
+```
+
+Guidelines used:
+
+- Routes compose middleware and call controllers; they don’t contain validation or DB code.
+- Controllers contain the actual operations (queries, inserts, transforms).
+- Schemas centralize request validation and are reused by both routes and tests.
+- Middleware is reusable and generic (e.g., `validateBody`, `authMiddleware`).
+- Config holds environment-based setup (DB pool, health checks).

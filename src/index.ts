@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes, { handleLogin, handleRegister } from './routes/auth.js';
+import authRoutes from './routes/auth.js';
+import { login as handleLogin, register as handleRegister } from './controllers/auth.js';
 import articleRoutes from './routes/articles.js';
 import { testConnection } from './config/database.js';
 
