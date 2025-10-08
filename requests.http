@@ -1,0 +1,43 @@
+@host = http://localhost:3000
+@password = secret123
+@token = {{login.response.body.$.token}}
+
+### Health
+GET {{host}}/health
+
+### Register (unique email via timestamp)
+# @name register
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "user{{$timestamp}}@example.com",
+  "password": "{{password}}"
+}
+
+### Login
+# @name login
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{register.response.body.$.email}}",
+  "password": "{{password}}"
+}
+
+### Create article (requires Bearer token)
+POST {{host}}/articles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Hello",
+  "body": "World",
+  "category": "General"
+}
+
+### List articles
+GET {{host}}/articles
+
+### List articles (paginated)
+GET {{host}}/articles?page=1&pageSize=5
