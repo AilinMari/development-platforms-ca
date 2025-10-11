@@ -207,3 +207,13 @@ Guidelines used:
 - Schemas centralize request validation and are reused by both routes and tests.
 - Middleware is reusable and generic (e.g., `validateBody`, `authMiddleware`).
 - Config holds environment-based setup (DB pool, health checks).
+
+
+## Motivation
+
+I chose this assignment because I wanted to learn a bit more about the backend part of it, and also so I would have a bigger understanding of how API's works.
+I think many of us wants to be a full-stack dev one day, so this assignment was a good way to look in that direction.
+
+I always struggle with the install and download part. To make everything work as it should before I start coding.
+For me to handle so many different "things" at once is a bit confusing, because I am a chaotic person. But I think I manage to figure it out, even tho I feel I should do the modules 10 times more right now so I actually remember anything, haha. I had a lot of smsll issues going on during this assignment, but I added the troubleshooting to the readMe in case other who wants to use this get the same issues.
+All in all, fun to do something else for a moment!
